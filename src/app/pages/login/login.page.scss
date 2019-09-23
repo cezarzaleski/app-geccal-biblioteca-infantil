@@ -1,0 +1,149 @@
+ion-content {
+  --padding-top: 0;
+  --padding-bottom: 0;
+  --padding-start: 0;
+  --padding-end: 0;
+  --background: white;
+
+  .flex-column-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .apresentacao {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 50%;
+    bottom: 0;
+
+    color: white;
+    background: var(--ion-color-primary);
+
+    @media (max-width: 640px) {
+      display: none;
+    }
+
+    .imagem {
+      width: 250px;
+      height: 250px;
+      background-size: 250px;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: transparent;
+      background-image: url('../../../assets/imgs/login/desc.png');
+    }
+
+    .desc {
+      max-width: 380px;
+      padding: 0 20px;
+      color: white;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .patria {
+      width: 250px;
+      height: 80px;
+      background-size: 250px;
+      background-position: center;
+      //background-repeat: no-repeat;
+      //background-color: transparent;
+
+      //background-image: url('../../../assets/imgs/login/patria.png');
+    }
+  }
+
+  form {
+    padding: 20px 4% 20px calc(50% + 4%);
+
+    @media (max-width: 640px) {
+      padding: 20px;
+    }
+
+    .logotipo {
+      margin: 20px auto;
+      width: 220px;
+      height: 80px;
+      background-size: 280px;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: transparent;
+      h2 {
+        text-align: center;
+        padding: 15px;
+        font-weight: 800;
+        color: #484848;
+      }
+    }
+
+    .esisbi {
+      margin: 20px auto;
+      width: 220px;
+      height: 80px;
+      h4 {
+        text-align: center;
+        padding: 15px;
+        color: #484848;
+      }
+    }
+
+    .apoio {
+      color: #484848;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+
+      @media (max-width: 640px) {
+        display: none;
+      }
+    }
+
+    .esqueceu-senha {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+
+      height: 44px;
+
+      color: #484848;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 12px;
+      letter-spacing: -0.15px;
+    }
+
+    .entrar {
+      margin: 10px 0;
+      width: 100%;
+    }
+
+    .solicitar-acesso {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      height: 44px;
+
+      color: var(--ion-color-primary);
+
+      font-size: 12px;
+      line-height: 12px;
+      font-weight: 700;
+      letter-spacing: -0.15px;
+
+      span {
+        font-size: 12px;
+
+        border-bottom: 1px solid var(--ion-color-primary);
+      }
+    }
+  }
+}

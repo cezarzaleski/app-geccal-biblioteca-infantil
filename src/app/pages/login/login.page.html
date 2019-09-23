@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar class="governo">
+    <div class="logotipo-govbr">
+        <h2>GECCAL</h2>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="apresentacao"
+       slot="fixed">
+    <div></div>
+    <div class="flex-column-center">
+      <div class="imagem"></div>
+      <div class="desc">
+          Cada livro edificante é porta libertadora. O livro espírita, entretanto, emancipa a alma, nos fundamentos da vida.
+          Amparemos o livro respeitável, que é luz de hoje; no entanto, auxiliemos e divulguemos, quanto nos seja possível, o livro espírita, que é luz de hoje, amanhã e sempre.
+          O livro nobre livra da ignorância, mas o livro espírita livra da ignorância e livra do mal.
+      </div>
+    </div>
+    <div class="patria"></div>
+  </div>
+
+  <form [formGroup]="form">
+    <div class="logotipo">
+        <h2>Sistema de Gestão da Biblioteca Infantil</h2>
+    </div>
+    <ion-item>
+      <ion-label position="stacked">Usuário</ion-label>
+      <ion-input formControlName="login"
+                 type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Senha</ion-label>
+      <ion-input formControlName="senha"
+                 type="password"></ion-input>
+    </ion-item>
+    <ion-item>
+      <div class="esqueceu-senha ion-activatable"
+           (click)="esqueceuSenhaClicked()">
+        Esqueceu sua senha?
+      </div>
+    </ion-item>
+    <ion-button class="entrar"
+                (click)="entrarClicked()">
+      Entrar
+    </ion-button>
+    <div class="esisbi">
+        <h4>Grupo Espírita Cristão a Caminho da Luz</h4>
+    </div>
+  </form>
+
+</ion-content>
