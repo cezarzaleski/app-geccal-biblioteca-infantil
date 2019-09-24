@@ -3,30 +3,10 @@ import { AppEnvironment, merge } from 'src/environments/environment.common';
 export const environment: AppEnvironment = merge({
   production: false,
   hosts: {
-    sisbi: {
+    geccal_bibliotecainfantil_ws: {
       host: 'localhost',
-      port: '8080',
+      port: '8089',
       protocol: 'http'
     },
-    corporativo: {
-      host: 'localhost',
-      port: '8081',
-      protocol: 'http'
-    },
-    arquivo: {
-      host: 'localhost',
-      port: '8082',
-      protocol: 'http'
-    },
-    gis: {
-      host: 'localhost',
-      port: '8083',
-      protocol: 'http'
-    },
-    segadmin: {
-      host: 'localhost',
-      port: '8084',
-      protocol: 'http'
-    }
   }
 });
