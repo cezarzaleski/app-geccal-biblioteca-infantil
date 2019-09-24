@@ -89,7 +89,7 @@
               "browserTarget": "app:build:production"
             },
             "local": {
-              "browserTarget": "app:build:production"
+              "browserTarget": "app:build:local"
             },
             "ci": {
               "progress": false
@@ -167,7 +167,7 @@
               "browserTarget": "app:build:production"
             },
             "local": {
-              "browserTarget": "app:build:production"
+              "browserTarget": "app:build:local"
             }
           }
         },
@@ -183,8 +183,8 @@
               "devServerTarget": "app:serve:production"
             },
             "local": {
-              "cordovaBuildTarget": "app:ionic-cordova-build:production",
-              "devServerTarget": "app:serve:production"
+              "cordovaBuildTarget": "app:ionic-cordova-build:local",
+              "devServerTarget": "app:serve:local"
             }
           }
         }
