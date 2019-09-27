@@ -1,0 +1,35 @@
+<ng-container class="secao"
+              *ngFor="let secao of secoes">
+
+  <div *ngIf="secao.titulo"
+       class="separador">
+    {{secao.titulo}}
+  </div>
+
+  <div *ngFor="let item of secao.menu"
+       class="menu">
+
+    <div [class.toggleActivated]="item['aberto']"
+         class="toggle ion-activatable"
+         [ngClass]="'toggle-' + item.id"
+         [hidden]='!item.secoes || item.secoes.length == 0'
+         (click)="toggleSubMenuClicked(item)">
+      <ion-icon name="ios-arrow-down"></ion-icon>
+    </div>
+
+    <div class="item ion-activatable"
+         [class.ativo]="rota.indexOf(item.link) === 0 && (!item.secoes || item.secoes.length == 0)"
+         role="button"
+         (click)="menuClicked(item)">
+      <ion-icon [src]="item.icone">
+      </ion-icon>
+      {{item.nome}}
+    </div>
+
+    <app-menu *ngIf='item.secoes && item.secoes.length > 0'
+              class="sub-secao"
+              [secoes]="item.secoes"
+              [ngClass]="'sub-secao-' + item.id">
+    </app-menu>
+  </div>
+</ng-container>
