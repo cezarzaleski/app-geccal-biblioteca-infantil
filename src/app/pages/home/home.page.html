@@ -1,14 +1,87 @@
 <ion-header>
+  <ion-toolbar class="governo">
+    <div class="logotipo-govbr"></div>
+  </ion-toolbar>
   <ion-toolbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
+    <div class="logotipo-header">
+      <div class="menu-toggle ion-activatable"
+           role="button"
+           (click)="menuToggleClicked()">
+        <svg width="22"
+             height="22"
+             xmlns="http://www.w3.org/2000/svg">
+          <g fill="currentColor">
+            <rect class="menu-button--top"
+                  x="3"
+                  y="5"
+                  width="14"
+                  height="2"></rect>
+            <rect class="menu-button--middle"
+                  x="3"
+                  y="10"
+                  width="11"
+                  height="2"></rect>
+            <rect class="menu-button--bottom"
+                  x="3"
+                  y="15"
+                  width="14"
+                  height="2"></rect>
+          </g>
+        </svg>
+      </div>
+      <div class="logotipo"></div>
+      <ng-container *ngIf="tituloPagina">
+        <div class="linha"></div>
+        <div class="titulo">
+          {{tituloPagina}}
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="end"
+         slot="end">
+      <div class="menu-usuario-toggle ion-activatable"
+           (click)="menuUsuarioToggleClicked()">
+        {{usuario?.nome?.split(' ')[0]}}
+        <ion-icon name="ios-arrow-down"></ion-icon>
+      </div>
+    </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
+
+  <div class="menu-usuario"
+       slot="fixed">
+    <div class="item ion-activatable"
+         (click)="alterarSenhaClicked()">
+      <ion-icon name="md-lock"></ion-icon>
+      Alterar Senha
+    </div>
+    <div class="item red ion-activatable"
+         (click)="sairClicked()">
+      <ion-icon name="md-log-out"></ion-icon>
+      Sair
+    </div>
+  </div> <!-- menu-usuario -->
+
+  <div class="menu-lateral"
+       slot="fixed">
+
+    <div class="menu-lateral-backdrop"
+         (click)="menuToggleClicked()">
+    </div>
+
+    <div class="menu-wrapper">
+      <app-menu [secoes]="secoes"></app-menu>
+    </div>
   </div>
+
+  <router-outlet></router-outlet>
+
 </ion-content>
+
+
+<ion-footer class="governo">
+  <div class="logotipo-footer"></div>
+</ion-footer>

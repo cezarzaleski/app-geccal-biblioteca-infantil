@@ -1,0 +1,279 @@
+$largura-menu: 250px;
+
+// ion-header
+// --------------------------------------------------
+
+ion-header {
+  ion-toolbar {
+    &.governo {
+      .logotipo-govbr {
+        @media (max-width: 768px) {
+          margin: 0 20px 0 65px; // remove from ion-toolbar for iOS animation
+        }
+      }
+    }
+
+    .end {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .notificacoes {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 50px;
+        height: 50px;
+
+        ion-icon {
+          color: var(--ion-color-primary);
+          font-size: 21px;
+        }
+      }
+
+      .menu-usuario-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 0 10px;
+        margin-right: 10px;
+        height: 50px;
+
+        font-size: 14px;
+        color: #484848;
+        letter-spacing: -0.21px;
+
+        ion-icon {
+          font-size: 16px;
+          margin-left: 4px;
+          transform: translate3d(0, 1px, 0);
+        }
+      }
+    }
+  }
+}
+
+// ion-content
+// --------------------------------------------------
+
+ion-content {
+  --padding-top: 0px;
+  --padding-bottom: 0px;
+  --padding-start: calc(#{$largura-menu} + 0px);
+  --padding-end: 0px;
+
+  @media (max-width: 768px) {
+    --padding-start: 0px;
+  }
+}
+
+
+.menu-usuario {
+  z-index: 99;
+  visibility: hidden;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  right: 20px;
+
+  width: 220px;
+  background: white;
+  border-radius: 0 0 5px 5px;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.05);
+
+  .item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    padding: 0 20px;
+    height: 45px;
+    border-radius: 0 5px 5px 0;
+
+    color: #6D7381;
+    font-size: 14px;
+    font-weight: 500;
+
+    &.red {
+      color: var(--ion-color-danger);
+
+      ion-icon {
+        color: var(--ion-color-danger);
+      }
+    }
+
+    ion-icon {
+      margin-right: 8px;
+      color: #B0B4BD;
+      font-size: 21px;
+    }
+
+    &.activated:before {
+      border-radius: 0 5px 5px 0;
+    }
+
+    &.ativo {
+      font-weight: 700;
+      color: var(--ion-color-primary);
+      background-color: rgba(#00A666, .1);
+
+      ion-icon {
+        color: var(--ion-color-primary);
+      }
+    }
+  }
+}
+
+.menu-toggle {
+  display: none;
+  margin-left: -15px;
+  width: 50px;
+  height: 50px;
+
+  ion-icon {
+    font-size: 24px;
+    color: #484848;
+  }
+
+  @media (max-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.menu-lateral {
+  z-index: 9999;
+  overflow: hidden;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: $largura-menu;
+  height: 100%;
+
+  @media (max-width: 768px) {
+    visibility: hidden;
+    width: 100%;
+  }
+
+  .menu-lateral-backdrop {
+    z-index: 77;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    @media (max-width: 768px) {
+      visibility: hidden;
+      opacity: 0;
+      background: rgba(black, .8);
+    }
+  }
+
+  .menu-wrapper {
+    z-index: 88;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    padding-top: 100px;
+
+    &::-webkit-scrollbar {
+      width: 0px;
+      background: transparent;
+    }
+
+    @media (max-width: 768px) {
+      visibility: hidden;
+      left: -100%;
+      width: $largura-menu;
+      background: #F4F5FA;
+    }
+
+    // fix na mudanca de orientacao (portrait~landscape) em tablets
+    @media (min-width: 769px) {
+      visibility: visible !important;
+      left: 0 !important;
+    }
+
+    .menu-area {
+      z-index: 99;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: calc(100% - 40px);
+
+      overflow: hidden;
+      margin: 20px;
+
+      background: white;
+      box-shadow: -2px 2px 4px 0 rgba(128, 152, 213, 0.07);
+      border-radius: 8px;
+
+      .menu-area-item {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        padding: 0 20px;
+        height: 60px;
+        border-bottom: 1px solid #f1f2f7;
+
+        user-select: none;
+        cursor: pointer;
+
+        &:last-of-type {
+          border-bottom: 1px solid transparent;
+        }
+
+        &.main {
+          justify-content: space-between;
+        }
+
+        &.menu-area-opcoes {
+          visibility: hidden;
+          height: 0;
+          opacity: 0;
+        }
+
+        .titulo {
+          font-size: 12px;
+          color: #818181;
+        }
+
+        .area {
+          color: var(--ion-color-primary);
+          font-size: 13px;
+          font-weight: 700;
+        }
+
+        .seta {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          width: 22px;
+          height: 22px;
+
+          background: #F9F9F9;
+          border: 1px solid #E6E8EB;
+          border-radius: 50%;
+
+          ion-icon {
+            margin-top: 2px;
+            color: var(--ion-color-primary);
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+}

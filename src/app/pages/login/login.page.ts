@@ -22,7 +22,7 @@ export class LoginPage {
   ) {
     this.form = fb.group({
       login: ['geccal', [Validators.required]],
-      senha: ['geccal', [Validators.required]],
+      senha: ['123456', [Validators.required]],
     });
   }
 
@@ -31,7 +31,6 @@ export class LoginPage {
   }
 
   entrarClicked() {
-    console.log('aqui');
     const login   = this.form.get('login').value,
       senha = this.form.get('senha').value;
     const sub = this
@@ -44,7 +43,7 @@ export class LoginPage {
       )
       .subscribe(
         (usuario) => {
-          this.router.navigate(['/home'], {replaceUrl: true});
+          this.router.navigate(['/app'], {replaceUrl: true});
         },
         err => {
           let msg = err.message;

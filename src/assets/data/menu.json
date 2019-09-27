@@ -1,0 +1,51 @@
+[{
+  "menu": [{
+    "icone": "assets/imgs/menu/indicadores.svg",
+    "id": "1",
+    "nome": "Meus indicadores",
+    "link": "/app/em-desenvolvimento"
+  }, {
+    "icone": "assets/imgs/menu/analise-produtos.svg",
+    "id": "2",
+    "nome": "Produtos",
+    "link": "/app/produtos"
+  }, {
+    "icone": "assets/imgs/menu/estabelecimentos.svg",
+    "id": "5",
+    "nome": "Meu estabelecimento",
+    "link": "/app/estabelecimento"
+  }, {
+    "icone": "assets/imgs/menu/mapa-producao.svg",
+    "id": "4",
+    "nome": "Mapa de produção",
+    "link": "/app/em-desenvolvimento"
+  }]
+}, {
+  "titulo": "Mais opções",
+  "menu": [{
+    "icone": "assets/imgs/menu/usuarios.svg",
+    "id": "3",
+    "nome": "Usuários",
+    "link": "/app/usuarios"
+  }, {
+    "icone": "assets/imgs/menu/notificacoes.svg",
+    "id": "6",
+    "nome": "Notificações",
+    "link": "/app/em-desenvolvimento"
+  }, {
+    "icone": "assets/imgs/menu/mural-avisos.svg",
+    "id": "7",
+    "nome": "Mural de avisos",
+    "link": "/app/mural-avisos"
+  }, {
+    "icone": "assets/imgs/menu/exportar-dados.svg",
+    "id": "8",
+    "nome": "Exportar dados",
+    "link": "/app/em-desenvolvimento"
+  }, {
+    "icone": "assets/imgs/menu/diretrizes-produtos.svg",
+    "id": "9",
+    "nome": "Diretrizes de produtos",
+    "link": "/app/em-desenvolvimento"
+  }]
+}]
