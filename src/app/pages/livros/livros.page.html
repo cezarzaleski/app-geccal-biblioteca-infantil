@@ -1,9 +1,30 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>livros</ion-title>
-  </ion-toolbar>
-</ion-header>
+<br>
+<div class="p-20">
+  <div class="justify-between">
+    <h1 class="primary">
+      Livros
+    </h1>
+    <ion-searchbar debounce="500"
+                   placeholder="Por Produto"
+                   (ionChange)="carregarDados()"></ion-searchbar>
+  </div>
 
-<ion-content>
+  <app-filtros [filtros]="filtros"></app-filtros>
 
-</ion-content>
+  <div class="lista">
+    <div class="justify-between">
+      <h1>
+        Lirvos cadastrados
+      </h1>
+      <ion-button fill="outline"
+                  color="warning"
+                  routerLink="/cadastrar-novo-produto">
+        Adicionar
+      </ion-button>
+    </div>
+
+
+
+  </div>
+</div>
+<br>

@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { LivrosPage } from './livros.page';
+import { FiltrosComponentModule } from 'src/app/components/filtros/filtros.module';
 
 const routes: Routes = [
   {
@@ -19,7 +20,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    FiltrosComponentModule
   ],
   declarations: [LivrosPage]
 })
