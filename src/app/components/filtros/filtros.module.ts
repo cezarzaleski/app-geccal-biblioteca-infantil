@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FiltrosComponent } from 'core/components/filtros/filtros.component';
 import { IonicModule } from '@ionic/angular';
-import { SelecaoComBuscaModalModule } from 'core/modals/selecao-com-busca-modal/selecao-com-busca-modal.module';
-import { MaterialModule } from 'app/material.module';
-import { PipesModule } from 'core/pipes/pipes.module';
+import { FiltrosComponent } from 'src/app/components/filtros/filtros.component';
+import { SelecaoComBuscaModalModule } from 'src/app/modals/selecao-com-busca-modal/selecao-com-busca-modal.module';
+import { PipesModule } from 'src/app/pipes/pipes.module';
+import { MaterialModule } from 'src/app/material.module';
 
 @NgModule({
   imports: [

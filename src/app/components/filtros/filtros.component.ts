@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { ServicoPaginado } from 'core/modals/selecao-com-busca-modal/interfaces/servico-paginado';
 import { Observable, of } from 'rxjs';
 import { ModalController } from '@ionic/angular';
+import { SatDatepicker, SatDatepickerInputEvent, SatDatepickerRangeValue } from 'saturn-datepicker';
+import { ServicoPaginado } from 'src/app/modals/selecao-com-busca-modal/interfaces/servico-paginado';
 import {
   SelecaoComBuscaModalComponent,
   SelecaoComBuscaProperties
-} from 'core/modals/selecao-com-busca-modal/selecao-com-busca-modal.component';
-import { SatDatepicker, SatDatepickerInputEvent, SatDatepickerRangeValue } from 'saturn-datepicker';
+} from 'src/app/modals/selecao-com-busca-modal/selecao-com-busca-modal.component';
 
 export interface FiltroOpcao {
   id?: any;
@@ -74,7 +74,7 @@ export class FiltrosComponent implements OnInit {
   @Output() listaFiltrosClick?: EventEmitter<Filtros> = new EventEmitter();
   @Output() selecionadoChange?: EventEmitter<Filtros> = new EventEmitter();
 
-  @ViewChild('picker') picker: SatDatepicker<Date>;
+  @ViewChild('picker', {static: false}) picker: SatDatepicker<Date>;
 
   handlePeriodoChange: (periodo: SatDatepickerRangeValue<Date>) => void;
   periodo: any;
