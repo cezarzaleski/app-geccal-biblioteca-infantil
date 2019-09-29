@@ -1,0 +1,39 @@
+<div class="filtros">
+  <div class="filtro ion-activatable"
+       *ngFor="let filtro of filtros"
+       [class.periodo]="filtro.tipo == 'periodo'"
+       (click)="listaFiltrosClicked(filtro)">
+    <mat-form-field *ngIf="filtro.tipo == 'periodo'"
+                    style="position: absolute; z-index: -10">
+      <input (dateChange)="dateChanged($event)"
+             [satDatepicker]="picker"
+             matInput
+             placeholder="Choose a date">
+      <sat-datepicker #picker
+                      [beginDate]="periodo ? periodo[0] : null"
+                      [endDate]="periodo ? periodo[1] : null"
+                      [id]=""
+                      [rangeMode]="true"></sat-datepicker>
+    </mat-form-field>
+    <div class="label">
+      {{filtro.nome}}
+      <div class="limpar" *ngIf="(filtro.limpavel || filtro.tipo == 'periodo') && filtro.selecionado != filtro.default" (click)="limparFiltroClicked(filtro, $event)">Limpar filtro</div>
+    </div>
+    <div class="justify-between">
+      <div *ngIf="filtro.tipo == 'selecao-unica'"
+           class="nome">
+        {{filtro.selecionado ? filtro.selecionado[filtro.campoNome] : filtro.placeholder}}
+      </div>
+      <div *ngIf="filtro.tipo == 'periodo'"
+           class="nome">
+        <ng-container *ngIf="!filtro.selecionado || !filtro.selecionado.length">{{filtro.placeholder}}</ng-container>
+        <ng-container *ngIf="filtro.selecionado && filtro.selecionado.length > 0">
+          {{filtro.selecionado[0] | moment:'':'DD/MM/YYYY'}} a {{filtro.selecionado[1] | moment:'':'DD/MM/YYYY'}}
+        </ng-container>
+      </div>
+      <div class="icone">
+        <ion-icon name="ios-arrow-down"></ion-icon>
+      </div>
+    </div>
+  </div>
+</div>
