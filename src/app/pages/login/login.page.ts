@@ -38,12 +38,10 @@ export class LoginPage {
       .obter(login, senha)
       .pipe(
         mergeMap((auth) => this.autorizacaoService.usar(auth)),
-        // mergeMap((auth) => this.usuarioService.obter(login, auth)),
-        // mergeMap((usuario) => this.usuarioService.usar(usuario))
       )
       .subscribe(
         (usuario) => {
-          this.router.navigate(['/app'], {replaceUrl: true});
+          this.router.navigate(['/app', 'livros'], {replaceUrl: true});
         },
         err => {
           let msg = err.message;

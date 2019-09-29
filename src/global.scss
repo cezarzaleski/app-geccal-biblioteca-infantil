@@ -177,13 +177,18 @@
         }
 
         .logotipo {
-          width: 90px;
+          --color: var(--ion-color-primary);
+          width: 100px;
           height: 40px;
-          text-align: center;
           background-size: auto 22px;
           background-repeat: no-repeat;
           background-color: transparent;
           background-position: left center;
+          h2 {
+            padding: 15px;
+            font-weight: 800;
+            color: var(--ion-color-primary);
+          }
         }
       }
 
@@ -334,13 +339,17 @@
     background-color: var(--ion-color-primary-shade);
 
     .logotipo-footer {
-      width: 250px;
+      width: auto;
       height: 50px;
       background-size: 100%;
       background-repeat: no-repeat;
       background-color: transparent;
       background-position: center;
-      background-image: url('./assets/imgs/logotipo-footer.png');
+      h6 {
+        font-size: 10px;
+        line-height: 0.5px;
+        text-align: center;
+      }
     }
 
     @media (max-width: 768px) {

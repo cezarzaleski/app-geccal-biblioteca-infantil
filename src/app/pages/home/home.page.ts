@@ -109,4 +109,8 @@ export class HomePage implements OnInit {
     this.menuUsuarioToggleClicked();
     this.router.navigate(['/app/alterar-senha']);
   }
+
+  menuEstabelecimentoToggle() {
+
+  }
 }

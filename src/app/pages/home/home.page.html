@@ -29,7 +29,9 @@
           </g>
         </svg>
       </div>
-      <div class="logotipo"></div>
+      <div class="logotipo">
+        <h2>GECCAL</h2>
+      </div>
       <ng-container *ngIf="tituloPagina">
         <div class="linha"></div>
         <div class="titulo">
@@ -53,11 +55,6 @@
 
   <div class="menu-usuario"
        slot="fixed">
-    <div class="item ion-activatable"
-         (click)="alterarSenhaClicked()">
-      <ion-icon name="md-lock"></ion-icon>
-      Alterar Senha
-    </div>
     <div class="item red ion-activatable"
          (click)="sairClicked()">
       <ion-icon name="md-log-out"></ion-icon>
@@ -73,7 +70,9 @@
     </div>
 
     <div class="menu-wrapper">
-      <app-menu [secoes]="secoes"></app-menu>
+      <app-menu [secoes]="secoes"
+                (itemClick)="menuToggleClicked()">
+      </app-menu>
     </div>
   </div>
 
@@ -83,5 +82,8 @@
 
 
 <ion-footer class="governo">
-  <div class="logotipo-footer"></div>
+  <div class="logotipo-footer">
+    <h6>Grupo Espírita Cristão a Caminho da Luz</h6>
+    <h6>Área Especial, Q 12 - Sobradinho, Brasília - DF, 73010-120</h6>
+  </div>
 </ion-footer>
