@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar mode="md">
+    <ion-searchbar debounce="500"
+                   mode="ios"
+                   [placeholder]="placeholder"
+                   *ngIf="mostrarBusca"
+                   [formControl]="searchbarControl">
+    </ion-searchbar>
+    <ion-title *ngIf="!mostrarBusca">{{placeholder}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button class="fechar"
+                  color="dark"
+                  (click)="fecharClicked()">
+        <ion-icon name="md-close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="estado-vazio"
+       *ngIf="termo && !loading && data.length == 0">
+    Nada encontrado.
+  </div>
+
+  <div [hidden]="data.length == 0 && !loading">
+    <ion-item *ngFor="let item of data; let i = index"
+              text-wrap>
+      <ion-label class="text-wrap">{{nome(item)}}</ion-label>
+      <ion-radio (ionSelect)="selecionado = item; indice = i;"
+                 mode="ios"
+                 slot="start"
+                 [checked]="item[campoId] == selecionadoId">
+      </ion-radio>
+    </ion-item>
+
+    <ng-container *ngIf="loading">
+      <div class="loading">
+        <ion-spinner name="crescent"
+                     color="primary"></ion-spinner>
+      </div>
+    </ng-container>
+  </div>
+
+  <ion-infinite-scroll threshold="2px"
+                       (ionInfinite)="carregarMais($event)">
+    <ion-infinite-scroll-content [loadingSpinner]="null"
+                                 [loadingText]="">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+
+<ion-footer no-border>
+  <ion-button (click)="confirmarClicked()"
+              expand="block">
+    Confirmar
+  </ion-button>
+</ion-footer>
