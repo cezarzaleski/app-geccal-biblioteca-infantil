@@ -18,19 +18,19 @@
         "icone": "assets/imgs/menu/analise-produtos.svg",
         "id": "2",
         "nome": "Editoras",
-        "link": "/app/produtos"
+        "link": "/app/editoras"
       },
       {
         "icone": "assets/imgs/menu/estabelecimentos.svg",
         "id": "5",
         "nome": "Autores",
-        "link": "/app/estabelecimento"
+        "link": "/app/autores"
       },
       {
         "icone": "assets/imgs/menu/mapa-producao.svg",
         "id": "4",
         "nome": "Empréstimo",
-        "link": "/app/em-desenvolvimento"
+        "link": "/app/emprestimos"
       }
     ]
   },

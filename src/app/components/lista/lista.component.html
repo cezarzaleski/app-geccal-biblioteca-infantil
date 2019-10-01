@@ -1,0 +1,121 @@
+<ng-container *ngIf="config?.titulo || config?.interacoes?.adicionar">
+  <div class="justify-between"
+       [class.p-20]="config?.transparente">
+    <h1>
+      {{config?.titulo}}
+    </h1>
+    <div *ngIf="config?.interacoes?.adicionar"
+         class="adicionar ion-activatable"
+         [ngClass]="config?.loading ? 'desabilitar' : ''"
+         (click)="adicionarClicked()">
+      Adicionar {{ pagina }}
+      <ion-icon name="ios-arrow-forward"></ion-icon>
+    </div>
+  </div>
+  <br>
+</ng-container>
+
+<div class="lista"
+     [class.transparente]="config?.transparente">
+  <!-- TITULO -->
+  <div class="linha">
+    <div class="linha-click"
+         [style.paddingRight]="espacamentoInteracoes + 'px'">
+      <div class="lista-col"
+           *ngFor="let coluna of config?.colunas"
+           [style.width]="coluna.largura">
+        {{coluna.titulo}}
+      </div>
+    </div>
+  </div>
+
+  <!-- CARREGANDO -->
+  <div *ngIf="config?.loading"
+       class="loading">
+    <ion-spinner name="crescent"
+                 color="primary"></ion-spinner>
+    Carregando...
+  </div>
+
+  <!-- ESTADO VAZIO -->
+  <div *ngIf="(!data || data?.length === 0) && !config?.loading && !config?.erro"
+       class="vazio">
+    <ng-container *ngIf="config.vazioMensagem">
+      {{config.vazioMensagem}}
+    </ng-container>
+    <ng-container *ngIf="!config.vazioMensagem">
+      Não há dados registrados.
+    </ng-container>
+  </div>
+
+  <!-- ERRO -->
+  <div *ngIf="config?.erro && !config?.loading"
+       class="erro">
+    <ng-container *ngIf="config?.erroMensagem">
+      {{config.erroMensagem}}
+    </ng-container>
+    <ng-container *ngIf="!config?.erroMensagem">
+      Erro ao carregar os dados.
+    </ng-container>
+  </div>
+
+  <!-- LISTA -->
+  <ng-container *ngIf="!config?.loading && !config?.erro">
+    <div class="linha"
+         *ngFor="let item of data"
+         [class.desabilitado]="desabilitado(item)">
+      <div class="linha-click"
+           [class.ion-activatable]="config?.interacoes?.indicador"
+           [style.paddingRight]="espacamentoInteracoes + 'px'"
+           (click)="itemClicked(item)">
+
+        <div class="lista-col"
+             *ngFor="let coluna of config?.colunas"
+             [innerHTML]="render(coluna, item)"
+             [style.width]="coluna.largura"
+             (click)="colunaClicked(coluna, item)"
+             [class.ion-activatable]="coluna.handler">
+        </div>
+      </div>
+
+      <div class="interacoes">
+        <div class="editar ion-activatable"
+             *ngIf="config.interacoes?.editar"
+             (click)="editarClicked(item)">
+          <ion-icon name="md-create"></ion-icon>
+        </div>
+        <div class="remover ion-activatable"
+             *ngIf="config.interacoes?.remover"
+             (click)="removerClicked(item)">
+          <ion-icon name="md-close-circle"></ion-icon>
+        </div>
+        <div class="indicador"
+             *ngIf="config.interacoes?.indicador">
+          <ion-icon name="arrow-forward"></ion-icon>
+        </div>
+        <div class="acoes"
+             (click)="acoesClicked(item, $event)"
+             *ngIf="acoes(item)">
+          <ion-icon name="md-more"></ion-icon>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<!-- NAVEGACAO -->
+<div class="navegacao"
+     *ngIf="config?.totalPaginas > 1">
+  <ng-container *ngFor="let pagina of paginacao(paginaSelecionada, config.totalPaginas)">
+    <div *ngIf="pagina !== '...'"
+         class="numero ion-activatable"
+         (click)="paginaClicked(pagina)"
+         [class.selecionado]="paginaSelecionada == pagina">
+      {{pagina}}
+    </div>
+    <div class="numero"
+         *ngIf="pagina === '...'">
+      ...
+    </div>
+  </ng-container>
+</div>
