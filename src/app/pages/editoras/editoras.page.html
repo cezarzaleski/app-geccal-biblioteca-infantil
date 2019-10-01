@@ -1,0 +1,23 @@
+<br>
+<div class="p-20">
+  <div class="justify-between">
+    <h1 class="primary">
+      Editoras
+    </h1>
+    <ion-searchbar #barSearch
+                   debounce="500"
+                   placeholder="Pesquisar"
+                   (ionChange)="pesquisar()">
+    </ion-searchbar>
+  </div>
+
+  <app-filtros [filtros]="filtros"></app-filtros>
+
+  <app-lista [config]="avisos?.configuracao"
+             [data]="avisos?.data"
+             (itemClick)="avisoClicked($event)">
+  </app-lista>
+
+</div>
+
+<br>
