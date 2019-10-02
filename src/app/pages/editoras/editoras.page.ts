@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { Filtros } from 'src/app/components/filtros/filtros.component';
+import { ConfiguracaoComDados } from 'src/app/components/lista/lista.component';
+import { Editora } from 'src/app/interfaces/editora';
+import { EditoraService } from 'src/app/services/editora.service';
 
 @Component({
   selector: 'app-editoras',
@@ -23,6 +26,40 @@ export class EditorasPage implements OnInit {
     },
     opcoes: [],
   }];
+
+  editoras: ConfiguracaoComDados<Editora> = {
+    configuracao: {
+      transparente: true,
+      titulo: 'Portarias SISBI',
+      desabilitado: item => item.idPortariaRevogacao !== null,
+      colunas: [
+        {
+          titulo: 'Descrição',
+          campo: 'noEditora',
+          largura: '70%',
+        },
+      ],
+      interacoes: {
+        adicionar: true,
+        editar: true,
+        remover: true,
+        indicador: false,
+      },
+      acoes: (x) => {
+        return [
+          {
+            nome: 'Excluir',
+            handler: item => this.excluirEditoraClicked(item)
+          },
+          {
+            nome: 'Editar',
+            handler: item => this.editarEditoraClicked(item)
+          }
+        ];
+      }
+    },
+    data: []
+  };
 
   avisos = {
     configuracao: {
@@ -94,9 +131,12 @@ export class EditorasPage implements OnInit {
 
   constructor(
     private navCtrl: NavController,
+    private editoraService: EditoraService,
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.carregarEditoras();
+  }
 
   avisoClicked() {
     this.navCtrl.navigateForward('/app/mural-aviso-detalhe');
@@ -104,5 +144,32 @@ export class EditorasPage implements OnInit {
 
   pesquisar() {
     console.log('pesquisar()');
+  }
+
+  carregarEditoras(page: number = 0) {
+    this.editoras.configuracao.loading = true;
+    this.editoras.configuracao.erro = false;
+    this
+      .editoraService
+      .listar({}, page)
+      .subscribe(
+        (data) => {
+          this.editoras.data = data;
+        },
+        () => {
+          this.editoras.data = null;
+          this.editoras.configuracao.erro = true;
+        })
+      .add(() => {
+        this.editoras.configuracao.loading = false;
+      });
+  }
+
+  private excluirEditoraClicked(item: any) {
+
+  }
+
+  private editarEditoraClicked(item: any) {
+
   }
 }

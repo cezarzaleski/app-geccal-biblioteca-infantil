@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { from, Observable, of, ReplaySubject, throwError } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { Usuario } from 'src/app/interfaces/usuario';
@@ -20,7 +20,7 @@ export class AutorizacaoService {
       .subscribe();
   }
 
-  obter(noUsuario: string, noSenha: string): Observable<any> {
+  obter(noUsuario: string, noSenha: string): Observable<Usuario> {
     const url = resolve('login');
     return this
       .http
@@ -36,8 +36,12 @@ export class AutorizacaoService {
         }
       })).pipe(
         map((response) => {
+          if (response instanceof HttpResponse) {
             const token = response.headers.get('Authorization');
-            return response;
+            const usuario = response.body;
+            usuario.token = token;
+            return usuario;
+          }
         })
       );
   }

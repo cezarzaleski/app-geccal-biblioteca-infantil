@@ -10,4 +10,5 @@ export interface Usuario {
   dtDesativacao?: string;
   perfil?: Perfil;
   colaborador?: Colaborador;
+  token?: string;
 }
