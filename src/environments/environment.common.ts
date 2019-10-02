@@ -41,8 +41,9 @@ export const environment: AppEnvironment = {
       port: '',
       root: '/',
       endpoints: {
-        'login': 'login',
-        'legislacoes/id': 'legislacoes/:id',
+        login: 'login',
+        'editoras/id': 'editoras/:id',
+        editoras: 'editoras',
       }
     },
   }
