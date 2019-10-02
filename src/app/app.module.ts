@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -8,9 +8,11 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AutorizacaoInterceptor } from 'src/app/interceptors/autorizacao.interceptor';
+import { MAT_DATE_LOCALE } from '@angular/material';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +28,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: HTTP_INTERCEPTORS, useClass: AutorizacaoInterceptor, multi: true },
+    {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'},
+    {provide: LOCALE_ID, useValue: 'pt-BR'},
   ],
   bootstrap: [AppComponent]
 })
