@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonSearchbar, ModalController, NavController } from '@ionic/angular';
 import { Filtros } from 'src/app/components/filtros/filtros.component';
 import { ConfiguracaoComDados } from 'src/app/components/lista/lista.component';
 import { Editora } from 'src/app/interfaces/editora';
-import { EditoraService } from 'src/app/services/editora.service';
+import { EditoraService, EditoraServiceFiltros } from 'src/app/services/editora.service';
+import { AdicionarEditoraModalComponent } from 'src/app/modals/adicionar-editora-modal/adicionar-editora-modal.component';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-editoras',
@@ -12,7 +14,7 @@ import { EditoraService } from 'src/app/services/editora.service';
 })
 export class EditorasPage implements OnInit {
 
-  // @ViewChild('barSearch') search: IonSearchbar;
+  @ViewChild('barSearch', null) search: IonSearchbar;
 
   filtros: Filtros[] = [{
     id: 'por-data',
@@ -29,12 +31,12 @@ export class EditorasPage implements OnInit {
 
   editoras: ConfiguracaoComDados<Editora> = {
     configuracao: {
+      totalPaginas: 10,
       transparente: true,
-      titulo: 'Portarias SISBI',
-      desabilitado: item => item.idPortariaRevogacao !== null,
+      // titulo: 'Editoras',
       colunas: [
         {
-          titulo: 'Descrição',
+          titulo: 'Nome',
           campo: 'noEditora',
           largura: '70%',
         },
@@ -44,94 +46,17 @@ export class EditorasPage implements OnInit {
         editar: true,
         remover: true,
         indicador: false,
-      },
-      acoes: (x) => {
-        return [
-          {
-            nome: 'Excluir',
-            handler: item => this.excluirEditoraClicked(item)
-          },
-          {
-            nome: 'Editar',
-            handler: item => this.editarEditoraClicked(item)
-          }
-        ];
       }
     },
     data: []
   };
 
-  avisos = {
-    configuracao: {
-      loading: false,
-      erro: false,
-      erroMensagem: '',
-      colunas: [
-        {
-          titulo: 'Comunicado',
-          campo: 'nmComunicado',
-          largura: '70%',
-        },
-        {
-          titulo: 'Data • Hora',
-          campo: 'nrDataHora',
-          largura: '30%',
-        },
-      ],
-      interacoes: {
-        adicionar: false,
-        editar: false,
-        remover: false,
-        indicador: true,
-      },
-    },
-    data: [
-      {
-        nmComunicado: 'Encerramento das operações do PSR no exercício de 2018',
-        nrDataHora: '13/12/2019 • 13:30h',
-      },
-      {
-        nmComunicado: 'Encerramento das operações do PSR no exercício de 2018',
-        nrDataHora: '13/12/2019 • 13:30h',
-      },
-      {
-        nmComunicado: 'Encerramento das operações do PSR no exercício de 2018',
-        nrDataHora: '13/12/2019 • 13:30h',
-      },
-      {
-        nmComunicado: 'Encerramento das operações do PSR no exercício de 2018',
-        nrDataHora: '13/12/2019 • 13:30h',
-      },
-      {
-        nmComunicado: 'Encerramento das operações do PSR no exercício de 2018',
-        nrDataHora: '13/12/2019 • 13:30h',
-      },
-      {
-        nmComunicado: 'Encerramento das operações do PSR no exercício de 2018',
-        nrDataHora: '13/12/2019 • 13:30h',
-      },
-      {
-        nmComunicado: 'Encerramento das operações do PSR no exercício de 2018',
-        nrDataHora: '13/12/2019 • 13:30h',
-      },
-      {
-        nmComunicado: 'Encerramento das operações do PSR no exercício de 2018',
-        nrDataHora: '13/12/2019 • 13:30h',
-      },
-      {
-        nmComunicado: 'Encerramento das operações do PSR no exercício de 2018',
-        nrDataHora: '13/12/2019 • 13:30h',
-      },
-      {
-        nmComunicado: 'Encerramento das operações do PSR no exercício de 2018',
-        nrDataHora: '13/12/2019 • 13:30h',
-      }
-    ],
-  };
+  private filtroRequisicao: EditoraServiceFiltros;
 
   constructor(
     private navCtrl: NavController,
     private editoraService: EditoraService,
+    private modalCtrl: ModalController,
   ) { }
 
   ngOnInit() {
@@ -143,15 +68,23 @@ export class EditorasPage implements OnInit {
   }
 
   pesquisar() {
-    console.log('pesquisar()');
+    let pesquisa = null;
+    const filtro: EditoraServiceFiltros = {
+      nome: ''
+    };
+    if (this.search)
+      pesquisa = this.search.value;
+    if (pesquisa && pesquisa.length >= 3) filtro.nome = pesquisa.toString();
+    this.carregarEditoras(null, filtro);
   }
 
-  carregarEditoras(page: number = 0) {
+  carregarEditoras(page: number = 0, filtros?: EditoraServiceFiltros) {
+    this.filtroRequisicao = _.merge(this.filtroRequisicao, filtros);
     this.editoras.configuracao.loading = true;
     this.editoras.configuracao.erro = false;
     this
       .editoraService
-      .listar({}, page)
+      .listar(this.filtroRequisicao, 0, 99999999)
       .subscribe(
         (data) => {
           this.editoras.data = data;
@@ -171,5 +104,16 @@ export class EditorasPage implements OnInit {
 
   private editarEditoraClicked(item: any) {
 
+  }
+
+  async adicionarClick() {
+    const modal = await this.modalCtrl.create({
+      component: AdicionarEditoraModalComponent,
+      componentProps: {}
+    });
+    await modal.present();
+    const data = (await modal.onDidDismiss()).data;
+    if (!data || data.dismissed) { return; }
+    this.carregarEditoras();
   }
 }

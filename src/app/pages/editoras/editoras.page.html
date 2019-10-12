@@ -11,10 +11,13 @@
     </ion-searchbar>
   </div>
 
-  <app-filtros [filtros]="filtros"></app-filtros>
+<!--  <app-filtros [filtros]="filtros"></app-filtros>-->
+  <br>
+  <br>
 
-  <app-lista [config]="avisos?.configuracao"
-             [data]="avisos?.data"
+  <app-lista [config]="editoras?.configuracao"
+             [data]="editoras?.data"
+             (adicionarClick)="adicionarClick()"
              (itemClick)="avisoClicked($event)">
   </app-lista>
 
