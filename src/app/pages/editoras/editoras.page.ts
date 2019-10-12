@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSearchbar, ModalController, NavController } from '@ionic/angular';
-import { Filtros } from 'src/app/components/filtros/filtros.component';
 import { ConfiguracaoComDados } from 'src/app/components/lista/lista.component';
 import { Editora } from 'src/app/interfaces/editora';
 import { EditoraService, EditoraServiceFiltros } from 'src/app/services/editora.service';
 import { AdicionarEditoraModalComponent } from 'src/app/modals/adicionar-editora-modal/adicionar-editora-modal.component';
 import * as _ from 'lodash';
+import { mergeMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-editoras',
@@ -15,19 +15,6 @@ import * as _ from 'lodash';
 export class EditorasPage implements OnInit {
 
   @ViewChild('barSearch', null) search: IonSearchbar;
-
-  filtros: Filtros[] = [{
-    id: 'por-data',
-    tipo: 'selecao-unica',
-    nome: 'Por data',
-    placeholder: 'Todos',
-    // selecionadoChange: (situacao: FiltroOpcao) => this.carregarDados(0, { 'csVinculo': situacao.id }),
-    selecionado: {
-      id: '',
-      nome: 'Todos',
-    },
-    opcoes: [],
-  }];
 
   editoras: ConfiguracaoComDados<Editora> = {
     configuracao: {
@@ -63,10 +50,6 @@ export class EditorasPage implements OnInit {
     this.carregarEditoras();
   }
 
-  avisoClicked() {
-    this.navCtrl.navigateForward('/app/mural-aviso-detalhe');
-  }
-
   pesquisar() {
     let pesquisa = null;
     const filtro: EditoraServiceFiltros = {
@@ -84,7 +67,15 @@ export class EditorasPage implements OnInit {
     this.editoras.configuracao.erro = false;
     this
       .editoraService
-      .listar(this.filtroRequisicao, 0, 99999999)
+      .count(this.filtroRequisicao)
+      .pipe(
+        tap( (count) => {
+          this.editoras.configuracao.totalPaginas = Math.ceil( count / 10);
+        }),
+        mergeMap( () => {
+          return this.editoraService.listar(this.filtroRequisicao, page);
+        })
+      )
       .subscribe(
         (data) => {
           this.editoras.data = data;
@@ -96,6 +87,11 @@ export class EditorasPage implements OnInit {
       .add(() => {
         this.editoras.configuracao.loading = false;
       });
+  }
+
+  paginaClicked(page) {
+    console.log('paginaClicked')
+    this.carregarEditoras(page - 1, this.filtroRequisicao);
   }
 
   private excluirEditoraClicked(item: any) {

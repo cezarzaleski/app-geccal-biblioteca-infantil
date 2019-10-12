@@ -44,6 +44,11 @@ export class EditoraService {
       .http
       .put<Editora>(url, editora);
   }
+
+  count(filtros?: EditoraServiceFiltros): Observable<number> {
+    const url = resolve('editoras/count', {...filtros});
+    return this.http.get<number>(url);
+  }
 }
 
 export interface EditoraServiceFiltros {

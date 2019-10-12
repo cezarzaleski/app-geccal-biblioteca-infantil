@@ -43,6 +43,7 @@ export const environment: AppEnvironment = {
       endpoints: {
         login: 'login',
         'editoras/id': 'editoras/:id',
+        'editoras/count': 'editoras/count',
         editoras: 'editoras',
       }
     },

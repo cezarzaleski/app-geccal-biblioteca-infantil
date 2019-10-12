@@ -10,15 +10,14 @@
                    (ionChange)="pesquisar()">
     </ion-searchbar>
   </div>
-
-<!--  <app-filtros [filtros]="filtros"></app-filtros>-->
   <br>
   <br>
 
   <app-lista [config]="editoras?.configuracao"
              [data]="editoras?.data"
              (adicionarClick)="adicionarClick()"
-             (editarClick)="editarEditoraClicked($event)">
+             (editarClick)="editarEditoraClicked($event)"
+             (paginaClick)="paginaClicked($event)">
   </app-lista>
 
 </div>
