@@ -15,8 +15,8 @@ import { EditoraService } from 'src/app/services/editora.service';
 export class AdicionarEditoraModalComponent {
 
   form: FormGroup;
-  idProdutoSisbi: number;
   erro = false;
+  editora: Editora;
 
   constructor(
     private fb: FormBuilder,
@@ -32,7 +32,8 @@ export class AdicionarEditoraModalComponent {
   }
 
   set() {
-    this.idProdutoSisbi = this.navParams.get('idProdutoSisbi');
+    this.editora = this.navParams.get('editora');
+    if (this.editora) this.form.patchValue(this.editora);
   }
   fecharClicked(dismissed: boolean) {
     this.modalController.dismiss({
@@ -46,10 +47,11 @@ export class AdicionarEditoraModalComponent {
     }
     this.form.disable()
     const editora: Editora = this.form.value;
-
-    const sub = this.editoraService.cadastrar(editora)
+    let subEditora = this.editoraService.cadastrar(editora);
+    if (this.editora) subEditora = this.editoraService.atualizar(this.editora.idEditora, editora);
+    const sub = subEditora
       .subscribe(() => {
-        toast(`Editora cadastrada!`);
+        toast(`Editora salva!`);
         this.fecharClicked(false);
       }, (e) => {
         if (e.error.Status === 400 && e.error.mensagem) {

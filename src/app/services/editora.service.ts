@@ -37,6 +37,13 @@ export class EditoraService {
       .http
       .delete<Editora>(url);
   }
+
+  atualizar(idEditora: number, editora: Editora): Observable<Editora> {
+    const url = resolve('editoras/id', idEditora);
+    return this
+      .http
+      .put<Editora>(url, editora);
+  }
 }
 
 export interface EditoraServiceFiltros {

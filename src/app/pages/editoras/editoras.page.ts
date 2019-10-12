@@ -102,14 +102,16 @@ export class EditorasPage implements OnInit {
 
   }
 
-  private editarEditoraClicked(item: any) {
-
+  private editarEditoraClicked(editora: Editora) {
+    this.adicionarClick(editora);
   }
 
-  async adicionarClick() {
+  async adicionarClick(editora?: Editora) {
     const modal = await this.modalCtrl.create({
       component: AdicionarEditoraModalComponent,
-      componentProps: {}
+      componentProps: {
+        editora
+      }
     });
     await modal.present();
     const data = (await modal.onDidDismiss()).data;
