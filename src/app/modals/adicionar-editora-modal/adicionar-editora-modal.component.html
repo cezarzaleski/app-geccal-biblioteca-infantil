@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Adicionar editora
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button class="fechar"
+                  color="dark"
+                  (click)="fecharClicked(true)">
+        <ion-icon name="md-close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form [formGroup]="form">
+    <ion-item>
+      <ion-label position="stacked">Nome da editora:</ion-label>
+      <ion-input placeholder="Digite o nome"
+                 maxlength="45"
+                 minlength="3"
+                 formControlName="noEditora"
+                 type="text"></ion-input>
+    </ion-item>
+  </form>
+
+  <br>
+
+</ion-content>
+
+<ion-footer>
+  <div class="justify-between">
+    <ion-button fill="outline"
+                (click)="fecharClicked(true)">
+      Cancelar
+    </ion-button>
+    <ion-button (click)="adicionarClicked()">
+      Adicionar
+    </ion-button>
+  </div>
+</ion-footer>

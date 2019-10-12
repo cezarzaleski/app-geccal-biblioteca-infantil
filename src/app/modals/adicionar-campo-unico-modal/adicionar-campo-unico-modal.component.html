@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Adicionar {{campo}}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button class="fechar"
+                  color="dark"
+                  (click)="fecharClicked()">
+        <ion-icon name="md-close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form [formGroup]="form">
+    <div class="flex-50">
+      <ion-item>
+        <ion-label position="stacked">Quantidade da porção</ion-label>
+        <ion-input placeholder="9999"
+                   formControlName="peNutricional"
+                   type="tel"></ion-input>
+      </ion-item>
+    </div>
+  </form>
+  <br>
+</ion-content>
+
+<ion-footer>
+  <div class="justify-between">
+    <ion-button fill="outline"
+                (click)="fecharClicked()">
+      Cancelar
+    </ion-button>
+    <ion-button (click)="adicionarClicked()">
+      Adicionar
+    </ion-button>
+  </div>
+</ion-footer>
