@@ -41,7 +41,7 @@ export class LoginPage {
       )
       .subscribe(
         (usuario) => {
-          this.router.navigate(['/app', 'livros'], {replaceUrl: true});
+          this.router.navigate(['/app', 'editoras'], {replaceUrl: true});
         },
         err => {
           let msg = err.message;
