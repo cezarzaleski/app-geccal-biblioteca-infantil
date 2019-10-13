@@ -53,4 +53,5 @@ export class EditoraService {
 
 export interface EditoraServiceFiltros {
   nome?: string;
+  stAtivo?: number;
 }

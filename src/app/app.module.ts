@@ -13,6 +13,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AutorizacaoInterceptor } from 'src/app/interceptors/autorizacao.interceptor';
 import { MAT_DATE_LOCALE } from '@angular/material';
+import { HttpCacheInterceptorService } from 'src/app/interceptors/http-cache-interceptor.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,6 +29,7 @@ import { MAT_DATE_LOCALE } from '@angular/material';
   providers: [
     StatusBar,
     SplashScreen,
+    { provide: HTTP_INTERCEPTORS, useClass: HttpCacheInterceptorService, multi: true },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: AutorizacaoInterceptor, multi: true },
     {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'},

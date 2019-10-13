@@ -1,11 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSearchbar, ModalController, NavController } from '@ionic/angular';
+import { AlertController, IonSearchbar, ModalController, NavController } from '@ionic/angular';
 import { ConfiguracaoComDados } from 'src/app/components/lista/lista.component';
 import { Editora } from 'src/app/interfaces/editora';
 import { EditoraService, EditoraServiceFiltros } from 'src/app/services/editora.service';
 import { AdicionarEditoraModalComponent } from 'src/app/modals/adicionar-editora-modal/adicionar-editora-modal.component';
 import * as _ from 'lodash';
 import { mergeMap, tap } from 'rxjs/operators';
+import { toast } from 'src/app/util/toast';
+import { errorHandler } from 'src/app/util/error';
+import { loading } from 'src/app/util/loading';
+import { HttpCacheService } from 'src/app/services/http-cache.service';
 
 @Component({
   selector: 'app-editoras',
@@ -20,7 +24,6 @@ export class EditorasPage implements OnInit {
     configuracao: {
       totalPaginas: 10,
       transparente: true,
-      // titulo: 'Editoras',
       colunas: [
         {
           titulo: 'Nome',
@@ -44,9 +47,14 @@ export class EditorasPage implements OnInit {
     private navCtrl: NavController,
     private editoraService: EditoraService,
     private modalCtrl: ModalController,
+    private alertCtrl: AlertController,
+    private cacheService: HttpCacheService
   ) { }
 
   ngOnInit() {
+    this.filtroRequisicao = {
+      stAtivo: 1
+    };
     this.carregarEditoras();
   }
 
@@ -70,6 +78,7 @@ export class EditorasPage implements OnInit {
       .count(this.filtroRequisicao)
       .pipe(
         tap( (count) => {
+          this.cacheService.disable();
           this.editoras.configuracao.totalPaginas = Math.ceil( count / 10);
         }),
         mergeMap( () => {
@@ -86,16 +95,46 @@ export class EditorasPage implements OnInit {
         })
       .add(() => {
         this.editoras.configuracao.loading = false;
+        this.cacheService.enable();
       });
   }
 
   paginaClicked(page) {
-    console.log('paginaClicked')
     this.carregarEditoras(page - 1, this.filtroRequisicao);
   }
 
-  private excluirEditoraClicked(item: any) {
+  async removerEditoraClicked(editora: Editora) {
+    const excluirEditora = () => {
+      const subRemoverEditora = this
+        .editoraService
+        .remover(editora.idEditora)
+        .subscribe(
+          () => {
+            this.carregarEditoras();
+            toast('Editora removida com sucesso');
+          },
+          (e) => toast(errorHandler(e, 'Não foi remover a editora. Tente novamente mais tarde.'))
+        );
+      loading(subRemoverEditora);
+    };
 
+    const alert = await this.alertCtrl.create({
+      header: 'Deseja remover a editora?',
+      buttons: [
+        {
+          text: 'NÃO',
+          role: 'cancel'
+        },
+        {
+          text: 'SIM',
+          role: 'confirm',
+          handler: () => excluirEditora()
+        }
+      ]
+    });
+
+    await alert.present();
+    await alert.onDidDismiss();
   }
 
   private editarEditoraClicked(editora: Editora) {
