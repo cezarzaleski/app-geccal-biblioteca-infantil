@@ -45,6 +45,9 @@ export const environment: AppEnvironment = {
         'editoras/id': 'editoras/:id',
         'editoras/count': 'editoras/count',
         editoras: 'editoras',
+        'autores/id': 'autores/:id',
+        'autores/count': 'autores/count',
+        autores: 'autores',
       }
     },
   }

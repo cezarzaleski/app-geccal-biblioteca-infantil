@@ -13,7 +13,7 @@ const routes: Routes = [
   {
     path: '',
     component: HomePage,
-    // canActivate: [HomeGuardService, AutorizacaoGuardService],
+    // canActivate: [AutorizacaoGuardService],
     resolve: {
       usuario: UsuarioResolverService,
       menu: MenuResolverService,
@@ -26,6 +26,10 @@ const routes: Routes = [
       {
         path: 'editoras',
         loadChildren: () => import('../editoras/editoras.module').then(m => m.EditorasPageModule)
+      },
+      {
+        path: 'autores',
+        loadChildren: () => import('../autores/autores.module').then(m => m.AutoresPageModule)
       },
     ]
   }

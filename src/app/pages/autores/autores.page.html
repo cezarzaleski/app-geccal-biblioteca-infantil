@@ -1,0 +1,26 @@
+<br>
+<div class="p-20">
+  <div class="justify-between">
+    <h1 class="primary">
+      Autores
+    </h1>
+    <ion-searchbar #barSearch
+                   debounce="500"
+                   placeholder="Pesquisar"
+                   (ionChange)="pesquisar()">
+    </ion-searchbar>
+  </div>
+  <br>
+  <br>
+
+  <app-lista [config]="autores?.configuracao"
+             [data]="autores?.data"
+             (adicionarClick)="adicionarClick()"
+             (editarClick)="editarAutorClicked($event)"
+             (removerClick)="removerAutorClicked($event)"
+             (paginaClick)="paginaClicked($event)">
+  </app-lista>
+
+</div>
+
+<br>
