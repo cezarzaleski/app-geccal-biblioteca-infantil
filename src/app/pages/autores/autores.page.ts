@@ -1,16 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AlertController, IonSearchbar, ModalController, NavController } from '@ionic/angular';
 import { ConfiguracaoComDados } from 'src/app/components/lista/lista.component';
-import { Editora } from 'src/app/interfaces/editora';
+import { Autor } from 'src/app/interfaces/autor';
 import { HttpCacheService } from 'src/app/services/http-cache.service';
 import { mergeMap, tap } from 'rxjs/operators';
 import { toast } from 'src/app/util/toast';
 import { errorHandler } from 'src/app/util/error';
 import { loading } from 'src/app/util/loading';
-import { AdicionarEditoraModalComponent } from 'src/app/modals/adicionar-editora-modal/adicionar-editora-modal.component';
-import { Autor } from 'src/app/interfaces/autor';
 import * as _ from 'lodash';
 import { AutorService, AutorServiceFiltros } from 'src/app/services/autor.service';
+import { AdicionarAutorModalComponent } from 'src/app/modals/adicionar-autor-modal/adicionar-autor-modal.component';
 
 @Component({
   selector: 'app-autores',
@@ -104,11 +103,11 @@ export class AutoresPage implements OnInit {
     this.carregarAutores(page - 1, this.filtroRequisicao);
   }
 
-  async removerAutorClicked(editora: Editora) {
-    const excluirEditora = () => {
-      const subRemoverEditora = this
+  async removerAutorClicked(autor: Autor) {
+    const excluirAutor = () => {
+      const subRemoverAutor = this
         .autorService
-        .remover(editora.idEditora)
+        .remover(autor.idAutor)
         .subscribe(
           () => {
             this.carregarAutores();
@@ -116,7 +115,7 @@ export class AutoresPage implements OnInit {
           },
           (e) => toast(errorHandler(e, 'Não foi remover a autor. Tente novamente mais tarde.'))
         );
-      loading(subRemoverEditora);
+      loading(subRemoverAutor);
     };
 
     const alert = await this.alertCtrl.create({
@@ -129,7 +128,7 @@ export class AutoresPage implements OnInit {
         {
           text: 'SIM',
           role: 'confirm',
-          handler: () => excluirEditora()
+          handler: () => excluirAutor()
         }
       ]
     });
@@ -138,15 +137,15 @@ export class AutoresPage implements OnInit {
     await alert.onDidDismiss();
   }
 
-  private editarAutorClicked(editora: Editora) {
-    this.adicionarClick(editora);
+  private editarAutorClicked(autor: Autor) {
+    this.adicionarClick(autor);
   }
 
-  async adicionarClick(editora?: Editora) {
+  async adicionarClick(autor?: Autor) {
     const modal = await this.modalCtrl.create({
-      component: AdicionarEditoraModalComponent,
+      component: AdicionarAutorModalComponent,
       componentProps: {
-        editora
+        autor
       }
     });
     await modal.present();

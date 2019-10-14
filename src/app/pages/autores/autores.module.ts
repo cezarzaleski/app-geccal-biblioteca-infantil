@@ -8,7 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { AutoresPage } from './autores.page';
 import { FiltrosComponentModule } from 'src/app/components/filtros/filtros.module';
 import { ListaComponentModule } from 'src/app/components/lista/lista.module';
-import { AdicionarEditoraModalModule } from 'src/app/modals/adicionar-editora-modal/adicionar-editora-modal.module';
+import { AdicionarAutorModalModule } from 'src/app/modals/adicionar-autor-modal/adicionar-autor-modal.module';
 
 const routes: Routes = [
   {
@@ -24,7 +24,7 @@ const routes: Routes = [
     IonicModule,
     FiltrosComponentModule,
     ListaComponentModule,
-    AdicionarEditoraModalModule,
+    AdicionarAutorModalModule,
     RouterModule.forChild(routes)
   ],
   declarations: [AutoresPage]
