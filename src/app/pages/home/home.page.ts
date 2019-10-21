@@ -21,6 +21,7 @@ export class HomePage implements OnInit {
   usuario: Usuario;
   tituloPagina = '';
   secoes = [];
+  nomeUsuario: any = 'GECCAL';
 
   constructor(
     private autorizacaoService: AutorizacaoService,

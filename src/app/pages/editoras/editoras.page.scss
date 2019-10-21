@@ -16,103 +16,11 @@ ion-searchbar {
   --placeholder-opacity: 1;
 }
 
-//ion-searchbar {
-//  width: 240px;
-//  height: 44px;
-//  box-shadow: 0 0 4px 0 rgba(black, .1);
-//  border-radius: 4px;
-//
-//  --color: var(--ion-color-primary);
-//  --background: white;
-//  --cancel-button-color: #6D7381;
-//   --clear-button-color: #6D7381;
-//  --icon-color: #6D7381;
-//  --placeholder-color: #6D7381;
-//  --placeholder-font-weight: 300;
-//  --placeholder-opacity: 1;
-//
-//  @media (max-width: 640px) {
-//    margin: 10px 0;
-//    width: 100%;
-//  }
-//}
-
 .lista {
   padding: 20px;
   background: white;
   box-shadow: -2px 2px 4px 0 rgba(128, 152, 213, 0.07);
   border-radius: 8px;
-
-  .produto {
-    padding: 20px;
-    margin-top: 20px;
-    border: 1px solid #E6E6E6;
-    border-radius: 6px;
-
-    .titulo {
-      margin-bottom: 10px;
-
-      color: #484848;
-      font-size: 12px;
-      line-height: 12px;
-      font-weight: 700;
-    }
-
-    .desc {
-      color: #818181;
-      font-size: 12px;
-      line-height: 12px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      span {
-        font-size: 12px;
-        line-height: 12px;
-      }
-
-      .solicitar {
-        color: var(--ion-color-primary);
-        font-weight: 500;
-        text-decoration: underline;
-      }
-
-      //solicitado
-      .sl {
-        color: var(--ion-color-gr);
-      }
-
-      //rascunho
-      .ra {
-        color: var(--ion-color-tertiary);
-      }
-
-      //não solicitado
-      .ns {
-        color: var(--ion-color-primary);
-      }
-
-      //suspenso
-      .sp {
-        color: var(--ion-color-danger);
-      }
-
-      //ativo
-      .at {
-        color: var(--ion-color-gr);
-      }
-
-      //inativo
-      .in {
-        color: var(--ion-color-danger);
-      }
-
-      .suspenso {
-        color: var(--ion-color-danger);
-      }
-    }
-  }
 }
 
 .loading {

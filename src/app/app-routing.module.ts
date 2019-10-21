@@ -11,6 +11,7 @@ const routes: Routes = [
   },
   { path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule)},
   { path: 'editoras', loadChildren: './pages/editoras/editoras.module#EditorasPageModule' },
+  { path: 'livros-adicionar', loadChildren: './livros-adicionar/livros-adicionar.module#LivrosAdicionarPageModule' },
 ];
 
 @NgModule({

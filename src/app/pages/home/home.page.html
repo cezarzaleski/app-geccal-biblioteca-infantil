@@ -42,10 +42,13 @@
 
     <div class="end"
          slot="end">
-      <div class="menu-usuario-toggle ion-activatable"
-           (click)="menuUsuarioToggleClicked()">
-        {{usuario?.nome?.split(' ')[0]}}
-        <ion-icon name="ios-arrow-down"></ion-icon>
+      <div class="usuario ion-activatable">
+        Olá, <span>{{nomeUsuario}}</span>
+      </div>
+      <div class="sair ion-activatable"
+           (click)="sairClicked()">
+        <ion-icon name="md-log-out"></ion-icon>
+        Sair
       </div>
     </div>
   </ion-toolbar>
