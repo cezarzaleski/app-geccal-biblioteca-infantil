@@ -7,7 +7,6 @@ import { toast } from 'src/app/util/toast';
 import { errorHandler } from 'src/app/util/error';
 import { loading } from 'src/app/util/loading';
 import * as _ from 'lodash';
-import { AdicionarEditoraModalComponent } from 'src/app/modals/adicionar-editora-modal/adicionar-editora-modal.component';
 import { LivroService, LivroServiceFiltros } from 'src/app/services/livro.service';
 import { Livro } from 'src/app/interfaces/livro';
 
@@ -144,15 +143,6 @@ export class LivrosPage implements OnInit {
   }
 
   async adicionarClick(editora?: Livro) {
-    const modal = await this.modalCtrl.create({
-      component: AdicionarEditoraModalComponent,
-      componentProps: {
-        editora
-      }
-    });
-    await modal.present();
-    const data = (await modal.onDidDismiss()).data;
-    if (!data || data.dismissed) { return; }
-    this.carregarLivros();
+    this.navCtrl.navigateForward('/app/adicionar-livro');
   }
 }

@@ -1,0 +1,38 @@
+<br>
+
+<h1 class="primary p-20">
+  Adicionar livro
+</h1>
+
+<div class="breadcrumb">
+  <div class="voltar ion-activatable"
+       role="button"
+       (click)="voltarClicked()">
+    <ion-icon name="ios-arrow-back"></ion-icon>
+    Voltar
+  </div>
+</div>
+
+<div class="p-20">
+  <div class="conteudo">
+    <form [formGroup]="form">
+      <ion-item>
+        <ion-label position="stacked">Assunto do aviso</ion-label>
+        <ion-input placeholder="Digite o assunto aqui"
+                   formControlName="dsAssuntoMuralAviso"
+                   type="text"></ion-input>
+      </ion-item>
+
+
+    </form>
+
+    <div class="justify-between">
+      <div></div>
+      <ion-button class="btn"
+                  (click)="adicionarClicked()">
+        {{txtBotao}}
+      </ion-button>
+    </div>
+  </div>
+</div>
+<br>
