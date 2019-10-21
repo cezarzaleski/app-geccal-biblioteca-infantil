@@ -1,20 +1,41 @@
 ion-searchbar {
   width: 240px;
   height: 44px;
-  background-color: white;
-  box-shadow: 0 0 4px 0 rgba(black, .1);
+  box-shadow: 0 0 0 0 rgba(black, .1);
   border-radius: 4px;
 
   margin-left: 10px !important;
 
   --color: var(--ion-color-primary);
   --background: transparent;
+  --background: white;
   --cancel-button-color: #6D7381;
   --icon-color: #6D7381;
   --placeholder-color: #6D7381;
   --placeholder-font-weight: 300;
   --placeholder-opacity: 1;
 }
+
+//ion-searchbar {
+//  width: 240px;
+//  height: 44px;
+//  box-shadow: 0 0 4px 0 rgba(black, .1);
+//  border-radius: 4px;
+//
+//  --color: var(--ion-color-primary);
+//  --background: white;
+//  --cancel-button-color: #6D7381;
+//   --clear-button-color: #6D7381;
+//  --icon-color: #6D7381;
+//  --placeholder-color: #6D7381;
+//  --placeholder-font-weight: 300;
+//  --placeholder-opacity: 1;
+//
+//  @media (max-width: 640px) {
+//    margin: 10px 0;
+//    width: 100%;
+//  }
+//}
 
 .lista {
   padding: 20px;
@@ -123,4 +144,8 @@ ion-searchbar {
   div {
     margin-right: 10px;
   }
+}
+
+.btn {
+  margin: 0 10px !important;
 }

@@ -48,6 +48,9 @@ export const environment: AppEnvironment = {
         'autores/id': 'autores/:id',
         'autores/count': 'autores/count',
         autores: 'autores',
+        'livros/id': 'livros/:id',
+        'livros/count': 'livros/count',
+        livros: 'livros',
       }
     },
   }

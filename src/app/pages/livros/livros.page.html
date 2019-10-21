@@ -4,27 +4,26 @@
     <h1 class="primary">
       Livros
     </h1>
-    <ion-searchbar debounce="500"
-                   placeholder="Por Produto"
-                   (ionChange)="carregarDados()"></ion-searchbar>
+    <ion-button class="btn"
+                (click)="adicionarClick()">
+      Adicionar
+    </ion-button>
+    <ion-searchbar #barSearch
+                   debounce="500"
+                   placeholder="Pesquisar"
+                   (ionChange)="pesquisar()">
+    </ion-searchbar>
   </div>
+  <br>
+  <br>
 
-  <app-filtros [filtros]="filtros"></app-filtros>
+  <app-lista [config]="livros?.configuracao"
+             [data]="livros?.data"
+             (editarClick)="editarLivroClicked($event)"
+             (removerClick)="removerLivroClicked($event)"
+             (paginaClick)="paginaClicked($event)">
+  </app-lista>
 
-  <div class="lista">
-    <div class="justify-between">
-      <h1>
-        Lirvos cadastrados
-      </h1>
-      <ion-button fill="outline"
-                  color="warning"
-                  routerLink="/cadastrar-novo-produto">
-        Adicionar
-      </ion-button>
-    </div>
-
-
-
-  </div>
 </div>
+
 <br>

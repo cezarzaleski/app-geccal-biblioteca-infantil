@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { LivrosPage } from './livros.page';
 import { FiltrosComponentModule } from 'src/app/components/filtros/filtros.module';
+import { ListaComponentModule } from 'src/app/components/lista/lista.module';
+import { AdicionarEditoraModalModule } from 'src/app/modals/adicionar-editora-modal/adicionar-editora-modal.module';
 
 const routes: Routes = [
   {
@@ -20,8 +22,10 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes),
-    FiltrosComponentModule
+    FiltrosComponentModule,
+    ListaComponentModule,
+    AdicionarEditoraModalModule,
+    RouterModule.forChild(routes)
   ],
   declarations: [LivrosPage]
 })
