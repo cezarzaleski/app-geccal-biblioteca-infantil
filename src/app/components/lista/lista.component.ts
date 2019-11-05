@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { PopoverController } from '@ionic/angular';
+import { AlertController, PopoverController } from '@ionic/angular';
 import { PopoverMenuComponent } from 'src/app/components/menu-popover/popover-menu.component';
 
 interface Coluna {
@@ -64,7 +64,8 @@ export class ListaComponent implements OnInit {
   constructor(
     private sanitizer: DomSanitizer,
     private cd: ChangeDetectorRef,
-    private popoverCtrl: PopoverController
+    private popoverCtrl: PopoverController,
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
@@ -93,7 +94,33 @@ export class ListaComponent implements OnInit {
   itemClicked(item: any) { this.itemClick.emit(item); }
   adicionarClicked() { this.adicionarClick.emit(); }
   editarClicked(item: any) { this.editarClick.emit(item); }
-  removerClicked(item: any) { this.removerClick.emit(item); }
+  removerClicked(item: any) {
+    this.presentAlertConfirm(item);
+  }
+
+  async presentAlertConfirm(item: any) {
+    const alert = await this.alertController.create({
+      message: 'Deseja remover este item?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary'
+        }, {
+          text: 'Confirmar',
+          handler: () => {
+            this.confirmaRemover(item);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  confirmaRemover(item: any) {
+    this.removerClick.emit(item);
+  }
 
   private render(coluna: Coluna, item: any) {
     let conteudo = '';

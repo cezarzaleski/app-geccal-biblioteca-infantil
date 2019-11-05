@@ -25,7 +25,7 @@
 
   <div [hidden]="data.length == 0 && !loading">
     <ion-item *ngFor="let item of data; let i = index"
-              text-wrap>
+              ion-text-wrap>
       <ion-label class="text-wrap">{{nome(item)}}</ion-label>
       <ion-radio (ionSelect)="selecionado = item; indice = i;"
                  mode="ios"

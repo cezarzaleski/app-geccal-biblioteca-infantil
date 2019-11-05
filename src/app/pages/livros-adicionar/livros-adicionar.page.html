@@ -17,10 +17,33 @@
   <div class="conteudo">
     <form [formGroup]="form">
       <ion-item>
-        <ion-label position="stacked">Assunto do aviso</ion-label>
-        <ion-input placeholder="Digite o assunto aqui"
-                   formControlName="dsAssuntoMuralAviso"
+        <ion-label position="stacked">Nome</ion-label>
+        <ion-input placeholder="Digite o nome aqui"
+                   formControlName="noLivro"
                    type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Número edição</ion-label>
+        <ion-input placeholder="Digite o número aqui"
+                   formControlName="noLivro"
+                   type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Origem</ion-label>
+        <ion-select placeholder="Selecione a origem"
+                    cancelText="Cancelar"
+                    formControlName="idOrigemLivro"
+                    okText="Selecionar">
+          <ion-select-option value="S">S</ion-select-option>
+          <ion-select-option value="N">N</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item class="mba-select" [class.ion-invalid]="!form.get('noEditora').valid && erro"
+                (click)="escolherEditoraClicked()">
+        <ion-label position="stacked">Editora</ion-label>
+        <ion-input formControlName="noEditora"
+                   placeholder="Selecione a editora"></ion-input>
+        <ion-icon name="md-arrow-dropdown"></ion-icon>
       </ion-item>
 
 

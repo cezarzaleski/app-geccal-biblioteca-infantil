@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 import { LivrosAdicionarPage } from 'src/app/pages/livros-adicionar/livros-adicionar.page';
+import { SelecaoComBuscaModalModule } from 'src/app/modals/selecao-com-busca-modal/selecao-com-busca-modal.module';
 
 
 const routes: Routes = [
@@ -20,7 +21,8 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    SelecaoComBuscaModalModule
   ],
   declarations: [LivrosAdicionarPage]
 })

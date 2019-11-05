@@ -104,7 +104,6 @@ export class EditorasPage implements OnInit {
   }
 
   async removerEditoraClicked(editora: Editora) {
-    const excluirEditora = () => {
       const subRemoverEditora = this
         .editoraService
         .remover(editora.idEditora)
@@ -116,25 +115,6 @@ export class EditorasPage implements OnInit {
           (e) => toast(errorHandler(e, 'Não foi remover a editora. Tente novamente mais tarde.'))
         );
       loading(subRemoverEditora);
-    };
-
-    const alert = await this.alertCtrl.create({
-      header: 'Deseja remover a editora?',
-      buttons: [
-        {
-          text: 'NÃO',
-          role: 'cancel'
-        },
-        {
-          text: 'SIM',
-          role: 'confirm',
-          handler: () => excluirEditora()
-        }
-      ]
-    });
-
-    await alert.present();
-    await alert.onDidDismiss();
   }
 
   private editarEditoraClicked(editora: Editora) {
