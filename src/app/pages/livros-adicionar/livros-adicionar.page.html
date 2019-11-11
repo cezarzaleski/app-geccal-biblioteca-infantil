@@ -16,7 +16,9 @@
 <div class="p-20">
   <div class="conteudo">
     <form [formGroup]="form">
-      <ion-item>
+<!--      <ion-item [class.ion-invalid]="!form.get('noLivro').valid && erro">-->
+<!--      <ion-item [class.ion-invalid]="false">-->
+      <ion-item [class.ion-invalid]="true">
         <ion-label position="stacked">Nome</ion-label>
         <ion-input placeholder="Digite o nome aqui"
                    formControlName="noLivro"
@@ -25,28 +27,31 @@
       <ion-item>
         <ion-label position="stacked">Número edição</ion-label>
         <ion-input placeholder="Digite o número aqui"
-                   formControlName="noLivro"
+                   formControlName="nuEdicao"
                    type="text"></ion-input>
       </ion-item>
-      <ion-item>
-        <ion-label position="stacked">Origem</ion-label>
-        <ion-select placeholder="Selecione a origem"
-                    cancelText="Cancelar"
-                    formControlName="idOrigemLivro"
-                    okText="Selecionar">
-          <ion-select-option value="S">S</ion-select-option>
-          <ion-select-option value="N">N</ion-select-option>
-        </ion-select>
-      </ion-item>
-      <ion-item class="mba-select" [class.ion-invalid]="!form.get('noEditora').valid && erro"
-                (click)="escolherEditoraClicked()">
-        <ion-label position="stacked">Editora</ion-label>
-        <ion-input formControlName="noEditora"
-                   placeholder="Selecione a editora"></ion-input>
-        <ion-icon name="md-arrow-dropdown"></ion-icon>
-      </ion-item>
-
-
+      <div formGroupName="origemLivro">
+        <ion-item>
+          <ion-label position="stacked">Origem</ion-label>
+          <ion-select placeholder="Selecione a origem"
+                      cancelText="Cancelar"
+                      formControlName="idOrigemLivro"
+                      okText="Selecionar">
+            <ion-select-option value="1">Aquisição GECCAL</ion-select-option>
+            <ion-select-option value="2">Doação</ion-select-option>
+            <ion-select-option value="3">Sem Informação</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </div>
+      <div formGroupName="editora">
+        <ion-item class="mba-select" [class.ion-invalid]="!form.get('editora').get('noEditora').valid && erro"
+                  (click)="escolherEditoraClicked()">
+          <ion-label position="stacked">Editora</ion-label>
+          <ion-input formControlName="noEditora"
+                     placeholder="Selecione a editora"></ion-input>
+          <ion-icon name="md-arrow-dropdown"></ion-icon>
+        </ion-item>
+      </div>
     </form>
 
     <div class="justify-between">

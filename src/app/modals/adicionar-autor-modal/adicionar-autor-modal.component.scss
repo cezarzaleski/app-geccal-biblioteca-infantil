@@ -5,37 +5,6 @@ ion-content {
 }
 
 
-ion-item {
-
-  &.ion-invalid.item-input,
-  &.ion-invalid.item-textarea,
-  &.ion-invalid.item-select:not(.item-has-value),
-  &.ion-invalid.item-datetime:not(.item-has-value) {
-    ion-label {
-      --color: #484848;
-    }
-
-    ion-input,
-    ion-textarea,
-    ion-select,
-    ion-datetime {
-      border-color: #DDDDDD;
-    }
-
-    &.erro {
-      ion-label {
-        --color: var(--ion-color-danger);
-      }
-
-      ion-input,
-      ion-textarea,
-      ion-select,
-      ion-datetime {
-        border-color: var(--ion-color-danger);
-      }
-    }
-  }
-}
 
 ion-searchbar {
   width: 100%;

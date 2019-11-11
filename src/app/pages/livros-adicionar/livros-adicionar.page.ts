@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 import { SelecaoComBuscaModalComponent } from 'src/app/modals/selecao-com-busca-modal/selecao-com-busca-modal.component';
 import { EditoraService } from 'src/app/services/editora.service';
+import { LivroService } from 'src/app/services/livro.service';
+import { validarFormGerais } from 'src/app/util/utilitarias';
+import { Livro } from 'src/app/interfaces/livro';
+import { toast } from 'src/app/util/toast';
+import { loading } from 'src/app/util/loading';
+import { errorHandler } from 'src/app/util/error';
 
 @Component({
   selector: 'app-livros-adicionar',
@@ -10,35 +16,60 @@ import { EditoraService } from 'src/app/services/editora.service';
   styleUrls: ['./livros-adicionar.page.scss'],
 })
 export class LivrosAdicionarPage implements OnInit {
-  txtBotao: any;
+  txtBotao = 'Salvar';
   form: FormGroup;
-  erro: boolean;
+  erro = true;
 
   constructor(
     private fb: FormBuilder,
     private modalCtrl: ModalController,
-    private editoraService: EditoraService
+    private editoraService: EditoraService,
+    private livroService: LivroService,
+    private navCtrl: NavController,
   ) {
     this.form = fb.group({
-      noLivro: ['', [Validators.required, Validators.maxLength(3), Validators.maxLength(45)]],
-      nuExemplar: ['', [Validators.required, Validators.maxLength(3), Validators.maxLength(45)]],
+      // noLivro: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]],
+      noLivro: [''],
+      nuEdicao: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(45)]],
       nuAno: ['', [Validators.required]],
-      idOrigemLivro: ['', [Validators.required]],
-      idEditora: ['', [Validators.required]],
-      noEditora: ['', [Validators.required]],
-      idAutor: ['', [Validators.required]],
+      editora: fb.group({
+        idEditora: ['', Validators.required],
+        noEditora: ['', Validators.required],
+      }),
+      autor: fb.group({
+        idAutor: ['', Validators.required],
+        noAutor: ['', Validators.required],
+      }),
+      origemLivro: fb.group({
+        idOrigemLivro: ['', Validators.required],
+      }),
     });
   }
 
   ngOnInit() {
+    this.erro = false;
+    console.log(this.erro);
   }
 
   adicionarClicked() {
-    console.log('adada');
+    this.erro = !validarFormGerais(this.form);
+    console.log(this.form.get('noLivro').valid)
+    console.log('erro ao adicionar', this.erro);
+    if (this.erro) { return; }
+    const livro: Livro = this.form.value;
+    const cadastro = this.livroService
+      .cadastrar(livro)
+      .subscribe(() => {
+          toast('Usuário salvo com sucesso!');
+        },
+        (e) => {
+          errorHandler(e, 'Não foi possível salvar as informações. Tente novamente.');
+        });
+    loading(cadastro);
   }
 
   voltarClicked() {
-    console.log('voltar');
+    this.navCtrl.back();
   }
 
   async escolherEditoraClicked() {
@@ -57,7 +88,7 @@ export class LivrosAdicionarPage implements OnInit {
     if (!data) {
       return;
     }
-    this.form.get('idEditora').setValue(data.dados.idEditora);
-    this.form.get('noEditora').setValue(data.dados.noEditora);
+    this.form.get('editora').get('idEditora').setValue(data.dados.idEditora);
+    this.form.get('editora').get('noEditora').setValue(data.dados.noEditora);
   }
 }

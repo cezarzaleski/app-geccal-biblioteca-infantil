@@ -51,24 +51,58 @@ export function leftPad(item: any, qtCaracteres, caracter: any) {
 }
 
 export function validarFormGerais(form: FormGroup) {
-  // form.updateValueAndValidity();
-  console.log('valid', form.valid);
-  console.log('erro', form.errors);
+  form.updateValueAndValidity();
   if (form.valid) return true;
-  const erro = Object.entries(form.controls).filter(control => !control[1].valid).shift();
+
+  let erro = Object.entries(form.controls).filter(control => !control[1].valid && !control[1].disabled).shift();
+
+  if (!erro) return true;
+  if (!erro[1].errors) {
+    // @ts-ignore
+    const {controls} = erro[1];
+    // @ts-ignore
+    erro = Object.entries(controls).filter(control => !control[1].valid && !control[1].disabled).shift();
+  }
+
   if (erro[1].errors.required) {
     toast(`Preencha os campos obrigatórios`);
     return false;
-  } else if (erro[1].errors.espacoEmBranco) {
+  }
+  if (erro[1].errors.espacoEmBranco) {
     toast(`Não é permitido campos apenas com espaços em branco.`);
     return false;
-  } else if (erro[1].errors.url) {
+  }
+  if (erro[1].errors.url) {
     toast('URL inválida.');
     return false;
-  } else if (erro[1].errors.minlength) {
+  }
+  if (erro[1].errors.minlength) {
     toast(`É necessário preencher com mais de 3 caracteres.`);
     return false;
-  } else return true;
+  }
+  if (erro[1].errors.maxlength) {
+    toast(`É permitido preencher com até ${erro[1].errors.maxlength.requiredLength} caracteres.`);
+    return false;
+  }
+  // @ts-ignore
+  if (erro[1].errors.nrCpf || erro[0].nrCpf) {
+    toast(`O campo de cpf não pode ser inválido.`);
+    return false;
+  }
+  if (erro[1].errors.email) {
+    toast(`O campo email não pode ser inválido.`);
+    return false;
+  }
+  if (erro[1].errors.max) {
+    toast(`Valor máximo excedido.`);
+    return false;
+  }
+  if (erro[1].errors.min) {
+    toast(`Valor minimo inválido.`);
+    return false;
+  }
+  toast(`O seu formulário contém erros. Favor verificar.`);
+  return false;
 }
 
 export function formatarBanco(numero: number) {
