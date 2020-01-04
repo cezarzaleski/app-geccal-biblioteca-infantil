@@ -26,7 +26,7 @@ export class AdicionarEditoraModalComponent {
     private editoraService: EditoraService,
   ) {
     this.form = fb.group({
-      noEditora: ['', [Validators.required, Validators.maxLength(3), Validators.maxLength(45)]],
+      noEditora: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]],
     });
     this.set();
   }
