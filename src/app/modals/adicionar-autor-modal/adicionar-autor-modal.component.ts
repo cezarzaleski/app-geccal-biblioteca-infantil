@@ -26,7 +26,7 @@ export class AdicionarAutorModalComponent {
     private autorService: AutorService,
   ) {
     this.form = fb.group({
-      noAutor: ['', [Validators.required, Validators.maxLength(3), Validators.maxLength(45)]],
+      noAutor: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]],
     });
     this.set();
   }
